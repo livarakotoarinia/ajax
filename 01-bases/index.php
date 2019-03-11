@@ -6,7 +6,7 @@
 </head>
 <body>
     <h1>Mon site</h1>
-
+    <button>Changer</button>
     <script>
         // On instancie le moteur AJAX
         var xhr = new XMLHttpRequest();
@@ -25,8 +25,12 @@
         // On exécute la requête HTTP
         xhr.send();
 
-        // On récupère la réponse HTTP
-        
+        document.getElementsByTagName('button')[0].addEventListener('click', function(){
+            // On prépare une requête HTTP
+            xhr.open('GET', './worker.php');
+            // On exécute la requête HTTP
+            xhr.send();
+        });
     </script>
 </body>
 </html>
