@@ -9,22 +9,24 @@ if ('POST' === $_SERVER['REQUEST_METHOD']){
 
     // On prépare le tableau avec les erreurs
     $errors = [];
-
     // On vérifie le champ name
     if (strlen($name) < 2) {
-        $errors['name'] = 'Erreur name';
+        $errors['name'] = 'Erreur sur le name';
         // echo 'Erreur name';
     }
 
     // On vérifie le champ message
     if (strlen($message) < 2) {
-        $errors['message'] = 'Erreur message';
+        $errors['message'] = 'Erreur sur le message';
         // echo 'Erreur message';
     }
 
     // On vérifie si le formulaire contient des erreurs
     if (empty($errors)) {
-        echo json_encode(['success' => 'Succès']);
+        echo json_encode(['success' => [
+            'name' => $name,
+            'message' => $message,
+        ]]);
     } else {
         echo json_encode(['errors' => $errors]);
         // print_r($errors);
