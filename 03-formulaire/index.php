@@ -12,7 +12,8 @@
     <div class="container">
         <div class="row">
             <div class="col-8 offset-2">
-                <div id="test" ></div>
+                <h1></h1>
+                <ul id="success" ></ul>
             </div>
         </div>
         <div class="row">
@@ -49,28 +50,36 @@
                 // On peut forcer le contenu en JSON si le serveur
                 // ne renvoie pas la bonne en-tête
                 // dataType: 'json'
+                beforeSend: function () {
+                    $('h1').html('Chargement en cours...');
+                },
+                complete: function () {
+                    $('h1').html('');
+                }
             }).done(function (response) {
                 if(response.success){
-                    $('#test').removeClass( 'alert alert-danger text-center' ).addClass('alert alert-success text-center');
-                    $('#test').html(response.success);
+                    $('#success').removeClass( 'alert alert-danger text-center' );
+                    // $('#test').html(response.success);
+                    var message = response.success;
+                    $('#success').append($('<li>'+message.name+' : '+message.message+'</li>'));
                 }
                 
                 if (response.errors){
                     if(response.errors.name && response.errors.message){
-                        $('#test').removeClass( "alert alert-success text-center" ).addClass('alert alert-danger text-center');
-                        $('#test').html("Erreur sur les champs");
+                        $('#success').removeClass( "alert alert-success text-center" ).addClass('alert alert-danger text-center');
+                        $('#success').html("Erreur sur les champs");
                     }
                     else if(response.errors.message){
-                        $('#test').removeClass( "alert alert-success text-center" ).addClass('alert alert-danger text-center');
-                        $('#test').html(response.errors.message);
+                        $('#success').removeClass( "alert alert-success text-center" ).addClass('alert alert-danger text-center');
+                        $('#success').html(response.errors.message);
                         
                     }else{
-                        $('#test').removeClass( "alert alert-success text-center" ).addClass('alert alert-danger text-center');
-                        $('#test').html(response.errors.name);
+                        $('#success').removeClass( "alert alert-success text-center" ).addClass('alert alert-danger text-center');
+                        $('#success').html(response.errors.name);
                         
                     }
                 }
-                console.log(response);
+                // console.log(response);
             })
         });
     
